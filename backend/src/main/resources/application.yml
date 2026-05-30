@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: petstore
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+database:
+  url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/petstore}
+  username: ${DATABASE_USERNAME:petstore}
+  password: ${DATABASE_PASSWORD:petstore}
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+server:
+  port: ${PORT:8080}

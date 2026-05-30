@@ -1,0 +1,39 @@
+databases:
+  - name: petstore-db
+    databaseName: petstore
+    user: petstore
+    plan: free
+
+services:
+  - type: web
+    name: petstore-api
+    env: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/v1/pets
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        fromDatabase:
+          name: petstore-db
+          property: connectionString
+      - key: CORS_ALLOWED_ORIGINS
+        fromService:
+          type: web
+          name: petstore-web
+          property: host
+
+  - type: static
+    name: petstore-web
+    plan: free
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    publishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: petstore-api
+          property: host
