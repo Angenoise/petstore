@@ -8,7 +8,7 @@ Backend:
 
 ```bash
 cd backend
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
+../mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
 Frontend:
