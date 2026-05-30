@@ -25,12 +25,13 @@ services:
           name: petstore-web
           property: host
 
-  - type: static
+  - type: web
     name: petstore-web
+    env: static
     plan: free
     rootDir: frontend
     buildCommand: npm ci && npm run build
-    publishPath: dist
+    staticPublishPath: dist
     envVars:
       - key: VITE_API_BASE_URL
         fromService:
